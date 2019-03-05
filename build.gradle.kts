@@ -12,4 +12,9 @@ allprojects {
     repositories {
         jcenter()
     }
+
+    ext {
+        set("versions.lombok", "1.18.6")
+        set("versions.immutable", "2.7.4")
+    }
 }

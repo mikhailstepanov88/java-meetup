@@ -7,9 +7,15 @@ plugins {
     id("io.spring.dependency-management")
 }
 
+val immutablesVersion = ext.get("versions.immutable") as String
+
 dependencies {
     compile(group = "org.springframework.boot", name = "spring-boot-starter-json")
     compile(group = "org.springframework.boot", name = "spring-boot-starter-webflux")
+    compile(group = "org.springframework.boot", name = "spring-boot-starter-data-mongodb-reactive")
+
+    compileOnly(group = "org.immutables", name = "value", version = immutablesVersion)
+
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 }
 
