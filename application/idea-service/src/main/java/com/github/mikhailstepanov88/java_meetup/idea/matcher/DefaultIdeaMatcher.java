@@ -3,6 +3,7 @@ package com.github.mikhailstepanov88.java_meetup.idea.matcher;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
+import reactor.util.annotation.NonNull;
 
 import java.util.Objects;
 
@@ -19,7 +20,7 @@ public class DefaultIdeaMatcher implements IdeaMatcher {
      * @return the request matched to the create idea operation or not.
      */
     @Override
-    public boolean matchCreateIdea(ServerRequest request) {
+    public boolean matchCreateIdea(@NonNull final ServerRequest request) {
         return POST("/idea")
                 .and(accept(APPLICATION_JSON_UTF8))
                 .and(contentType(APPLICATION_JSON_UTF8))
@@ -33,7 +34,7 @@ public class DefaultIdeaMatcher implements IdeaMatcher {
      * @return the request matched to the read idea by his identifier operation or not.
      */
     @Override
-    public boolean matchReadIdeaById(ServerRequest request) {
+    public boolean matchReadIdeaById(@NonNull final ServerRequest request) {
         return GET("/idea/{idea_id}")
                 .and(accept(APPLICATION_JSON_UTF8))
                 .and(contentType(APPLICATION_JSON_UTF8))
@@ -47,7 +48,7 @@ public class DefaultIdeaMatcher implements IdeaMatcher {
      * @return the request matched to the read ideas by pattern operation or not.
      */
     @Override
-    public boolean matchReadIdeasByPattern(ServerRequest request) {
+    public boolean matchReadIdeasByPattern(@NonNull final ServerRequest request) {
         return GET("/idea")
                 .and(queryParam("pattern", Objects::nonNull))
                 .and(accept(APPLICATION_JSON_UTF8))
@@ -62,7 +63,7 @@ public class DefaultIdeaMatcher implements IdeaMatcher {
      * @return the request matched to the read ideas operation or not.
      */
     @Override
-    public boolean matchReadIdeas(ServerRequest request) {
+    public boolean matchReadIdeas(@NonNull final ServerRequest request) {
         return GET("/idea")
                 .and(queryParam("pattern", Objects::isNull))
                 .and(accept(APPLICATION_JSON_UTF8))

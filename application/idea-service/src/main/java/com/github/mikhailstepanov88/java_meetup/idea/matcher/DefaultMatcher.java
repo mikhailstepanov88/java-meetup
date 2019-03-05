@@ -2,6 +2,7 @@ package com.github.mikhailstepanov88.java_meetup.idea.matcher;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
+import reactor.util.annotation.NonNull;
 
 @Component
 public class DefaultMatcher implements Matcher {
@@ -12,7 +13,7 @@ public class DefaultMatcher implements Matcher {
      *
      * @param ideaMatcher matcher of idea requests.
      */
-    public DefaultMatcher(IdeaMatcher ideaMatcher) {
+    public DefaultMatcher(@NonNull final IdeaMatcher ideaMatcher) {
         this.ideaMatcher = ideaMatcher;
     }
 
@@ -23,7 +24,7 @@ public class DefaultMatcher implements Matcher {
      * @return the request matched to the create idea operation or not.
      */
     @Override
-    public boolean matchCreateIdea(ServerRequest request) {
+    public boolean matchCreateIdea(@NonNull final ServerRequest request) {
         return ideaMatcher.matchCreateIdea(request);
     }
 
@@ -34,7 +35,7 @@ public class DefaultMatcher implements Matcher {
      * @return the request matched to the read idea by his identifier operation or not.
      */
     @Override
-    public boolean matchReadIdeaById(ServerRequest request) {
+    public boolean matchReadIdeaById(@NonNull final ServerRequest request) {
         return ideaMatcher.matchReadIdeaById(request);
     }
 
@@ -45,7 +46,7 @@ public class DefaultMatcher implements Matcher {
      * @return the request matched to the read ideas by pattern operation or not.
      */
     @Override
-    public boolean matchReadIdeasByPattern(ServerRequest request) {
+    public boolean matchReadIdeasByPattern(@NonNull final ServerRequest request) {
         return ideaMatcher.matchReadIdeasByPattern(request);
     }
 
@@ -56,7 +57,7 @@ public class DefaultMatcher implements Matcher {
      * @return the request matched to the read ideas operation or not.
      */
     @Override
-    public boolean matchReadIdeas(ServerRequest request) {
+    public boolean matchReadIdeas(@NonNull final ServerRequest request) {
         return ideaMatcher.matchReadIdeas(request);
     }
 }
