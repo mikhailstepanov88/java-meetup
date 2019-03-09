@@ -3,6 +3,7 @@ package com.github.mikhailstepanov88.java_meetup.like.repository;
 import com.github.mikhailstepanov88.java_meetup.like.data.entity.LikeEntity;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
@@ -48,8 +49,10 @@ public class LikeMongoRepository implements LikeRepository {
     @Override
     public Mono<LikeEntity> readLikeById(@NonNull final String ideaId,
                                          @NonNull final String likeId) {
-        Query query = query(where("id").is(new ObjectId(likeId))
-                .and("ideaId").is(ideaId));
+        Query query = query(new Criteria().andOperator(
+                where("id").is(new ObjectId(likeId)),
+                where("ideaId").is(ideaId)
+        ));
         return template.findOne(query, LikeEntity.class);
     }
 
@@ -77,8 +80,10 @@ public class LikeMongoRepository implements LikeRepository {
     @Override
     public Mono<Boolean> deleteLike(@NonNull final String ideaId,
                                     @NonNull final String likeId) {
-        Query query = query(where("id").is(new ObjectId(likeId))
-                .and("ideaId").is(ideaId));
+        Query query = query(new Criteria().andOperator(
+                where("id").is(new ObjectId(likeId)),
+                where("ideaId").is(ideaId)
+        ));
         return template.remove(query, LikeEntity.class)
                 .map(result -> result.getDeletedCount() > 0);
     }
