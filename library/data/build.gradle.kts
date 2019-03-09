@@ -14,6 +14,7 @@ val springBootVersion = ext.get("versions.spring-boot") as String
 dependencies {
     compileOnly(group = "org.projectlombok", name = "lombok", version = lombokVersion)
     compileOnly(group = "org.immutables", name = "value", version = immutablesVersion)
+    compileOnly(group = "org.immutables", name = "annotate", version = immutablesVersion)
 
     compileOnly(group = "io.projectreactor", name = "reactor-core", version = reactorVersion)
     compileOnly(group = "com.fasterxml.jackson.core", name = "jackson-annotations", version = jacksonVersion)
