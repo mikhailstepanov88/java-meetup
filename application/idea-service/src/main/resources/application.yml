@@ -1,0 +1,7 @@
+spring.data.mongodb:
+  host: localhost
+  port: 27017
+  database: idea
+  authentication-database: admin
+  username: admin
+  password: admin
