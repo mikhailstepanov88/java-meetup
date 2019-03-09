@@ -42,7 +42,8 @@ public class DefaultIdeaHandler implements IdeaHandler {
                 .flatMap(ideaService::createIdea)
                 .flatMap(idea -> created(request.uriBuilder()
                         .path("/")
-                        .path(idea.getId()).build()
+                        .path(idea.getId())
+                        .build()
                 ).build())
                 .switchIfEmpty(notFound().build())
                 .onErrorResume(this::exceptionToResponse);

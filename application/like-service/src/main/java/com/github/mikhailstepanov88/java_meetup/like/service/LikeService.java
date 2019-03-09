@@ -9,11 +9,22 @@ public interface LikeService {
     /**
      * Create like.
      *
-     * @param like like for create.
+     * @param ideaId identifier of idea.
+     * @param like   like for create.
      * @return created like.
      */
     @NonNull
-    Mono<LikeDTO> createLike(@NonNull LikeDTO like);
+    Mono<LikeDTO> createLike(@NonNull String ideaId, @NonNull LikeDTO like);
+
+    /**
+     * Read like by his identifier.
+     *
+     * @param ideaId identifier of idea for search.
+     * @param likeId identifier of like for search.
+     * @return like by his identifier.
+     */
+    @NonNull
+    Mono<LikeDTO> readLikeById(@NonNull String ideaId, @NonNull String likeId);
 
     /**
      * Read likes by identifier of idea.
@@ -27,9 +38,10 @@ public interface LikeService {
     /**
      * Delete like by his identifier.
      *
+     * @param ideaId identifier of idea for delete.
      * @param likeId identifier of like for delete.
      * @return operation complete successfully or not.
      */
     @NonNull
-    Mono<Boolean> deleteLike(@NonNull String likeId);
+    Mono<Boolean> deleteLike(@NonNull String ideaId, @NonNull String likeId);
 }
