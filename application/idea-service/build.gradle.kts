@@ -10,11 +10,12 @@ plugins {
 val lombokVersion = ext.get("versions.lombok") as String
 
 dependencies {
+    compile(project(":library:data"))
+    compile(project(":library:converter"))
+
     compile(group = "org.springframework.boot", name = "spring-boot-starter-json")
     compile(group = "org.springframework.boot", name = "spring-boot-starter-webflux")
     compile(group = "org.springframework.boot", name = "spring-boot-starter-data-mongodb-reactive")
-
-    compileOnly(group = "org.projectlombok", name = "lombok", version = lombokVersion)
 
     annotationProcessor(group = "org.projectlombok", name = "lombok", version = lombokVersion)
     annotationProcessor(group = "org.springframework.boot", name = "spring-boot-configuration-processor")
