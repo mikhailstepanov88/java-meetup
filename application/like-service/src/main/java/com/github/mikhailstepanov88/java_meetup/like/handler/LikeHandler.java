@@ -16,6 +16,15 @@ public interface LikeHandler {
     Mono<ServerResponse> handleCreateLike(@NonNull ServerRequest request);
 
     /**
+     * Handle read like by his identifier operation.
+     *
+     * @param request request for handle.
+     * @return response of read like by his identifier operation.
+     */
+    @NonNull
+    Mono<ServerResponse> handleReadLikeById(@NonNull ServerRequest request);
+
+    /**
      * Handle read likes by idea identifier operation.
      *
      * @param request request for handle.
