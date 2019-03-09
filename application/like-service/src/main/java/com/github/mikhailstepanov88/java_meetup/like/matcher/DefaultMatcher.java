@@ -29,6 +29,17 @@ public class DefaultMatcher implements Matcher {
     }
 
     /**
+     * Verify that the request matched to read like by his identifier operation.
+     *
+     * @param request request for check.
+     * @return the request matched to read like by his identifier operation or not.
+     */
+    @Override
+    public boolean matchReadLikeById(@NonNull final ServerRequest request) {
+        return likeMatcher.matchReadLikeById(request);
+    }
+
+    /**
      * Verify that the request matched to the read likes by idea identifier operation.
      *
      * @param request request for check.

@@ -13,6 +13,14 @@ public interface LikeMatcher {
     boolean matchCreateLike(@NonNull ServerRequest request);
 
     /**
+     * Verify that the request matched to read like by his identifier operation.
+     *
+     * @param request request for check.
+     * @return the request matched to read like by his identifier operation or not.
+     */
+    boolean matchReadLikeById(@NonNull ServerRequest request);
+
+    /**
      * Verify that the request matched to the read likes by idea identifier operation.
      *
      * @param request request for check.
