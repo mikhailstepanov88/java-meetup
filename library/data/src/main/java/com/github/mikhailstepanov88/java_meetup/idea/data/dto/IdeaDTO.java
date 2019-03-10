@@ -1,23 +1,23 @@
 package com.github.mikhailstepanov88.java_meetup.idea.data.dto;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.github.mikhailstepanov88.java_meetup.like.data.dto.LikeDTO;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 import reactor.util.annotation.NonNull;
 import reactor.util.annotation.Nullable;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor(onConstructor = @__(@JsonCreator))
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class IdeaDTO {
     @Nullable
-    private final String id;
+    private String id;
     @NonNull
-    private final String title;
+    private String title;
     @NonNull
-    private final String description;
+    private String description;
     @NonNull
-    private final List<LikeDTO> likes;
+    private List<LikeDTO> likes;
 }

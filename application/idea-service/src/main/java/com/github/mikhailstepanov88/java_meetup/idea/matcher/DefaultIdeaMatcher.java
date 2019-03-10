@@ -65,7 +65,6 @@ public class DefaultIdeaMatcher implements IdeaMatcher {
     @Override
     public boolean matchReadIdeas(@NonNull final ServerRequest request) {
         return GET("/idea")
-                .and(queryParam("pattern", Objects::isNull))
                 .and(accept(APPLICATION_JSON_UTF8))
                 .and(contentType(APPLICATION_JSON_UTF8))
                 .test(request);

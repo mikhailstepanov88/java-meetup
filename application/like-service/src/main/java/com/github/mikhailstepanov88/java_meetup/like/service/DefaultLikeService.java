@@ -42,7 +42,9 @@ public class DefaultLikeService implements LikeService {
     public Mono<LikeDTO> createLike(@NonNull final String ideaId,
                                     @NonNull final LikeDTO like) {
         LikeEntity likeEntity = likeDTOLikeEntityConverter.convert(like);
-        likeEntity = new LikeEntity(null, ideaId, likeEntity.getWeight(), likeEntity.getComment());
+        likeEntity.setId(null);
+        likeEntity.setIdeaId(ideaId);
+
         return likeRepository.createLike(likeEntity).map(likeEntityLikeDTOConverter::convert);
     }
 

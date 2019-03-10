@@ -40,7 +40,8 @@ public class DefaultIdeaService implements IdeaService {
     @Override
     public Mono<IdeaDTO> createIdea(@NonNull final IdeaDTO idea) {
         IdeaEntity ideaEntity = ideaDTOIdeaEntityConverter.convert(idea);
-        ideaEntity = new IdeaEntity(null, ideaEntity.getTitle(), ideaEntity.getDescription());
+        ideaEntity.setId(null);
+
         return ideaRepository.createIdea(ideaEntity).map(ideaEntityIdeaDTOConverter::convert);
     }
 
