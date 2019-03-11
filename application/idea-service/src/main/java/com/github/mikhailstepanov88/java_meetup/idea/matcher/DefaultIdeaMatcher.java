@@ -37,7 +37,6 @@ public class DefaultIdeaMatcher implements IdeaMatcher {
     public boolean matchReadIdeaById(@NonNull final ServerRequest request) {
         return GET("/idea/{idea_id}")
                 .and(accept(APPLICATION_JSON_UTF8))
-                .and(contentType(APPLICATION_JSON_UTF8))
                 .test(request);
     }
 
@@ -52,7 +51,6 @@ public class DefaultIdeaMatcher implements IdeaMatcher {
         return GET("/idea")
                 .and(queryParam("pattern", Objects::nonNull))
                 .and(accept(APPLICATION_JSON_UTF8))
-                .and(contentType(APPLICATION_JSON_UTF8))
                 .test(request);
     }
 
@@ -66,7 +64,6 @@ public class DefaultIdeaMatcher implements IdeaMatcher {
     public boolean matchReadIdeas(@NonNull final ServerRequest request) {
         return GET("/idea")
                 .and(accept(APPLICATION_JSON_UTF8))
-                .and(contentType(APPLICATION_JSON_UTF8))
                 .test(request);
     }
 }

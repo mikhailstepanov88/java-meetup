@@ -5,6 +5,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.annotation.NonNull;
 import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,6 +21,7 @@ public class RetrofitLikeServiceClient implements LikeServiceClient {
     public RetrofitLikeServiceClient(@NonNull final String baseUrl) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
+                .addConverterFactory(JacksonConverterFactory.create())
                 .build();
         this.api = retrofit.create(RetrofitLikeServiceApi.class);
     }

@@ -35,7 +35,6 @@ public class DefaultLikeMatcher implements LikeMatcher {
     public boolean matchReadLikeById(@NonNull final ServerRequest request) {
         return GET("/idea/{idea_id}/like/{like_id}")
                 .and(accept(APPLICATION_JSON_UTF8))
-                .and(contentType(APPLICATION_JSON_UTF8))
                 .test(request);
     }
 
@@ -49,7 +48,6 @@ public class DefaultLikeMatcher implements LikeMatcher {
     public boolean matchReadLikesByIdeaId(@NonNull final ServerRequest request) {
         return GET("/idea/{idea_id}/like")
                 .and(accept(APPLICATION_JSON_UTF8))
-                .and(contentType(APPLICATION_JSON_UTF8))
                 .test(request);
     }
 
@@ -63,7 +61,6 @@ public class DefaultLikeMatcher implements LikeMatcher {
     public boolean matchDeleteLike(@NonNull final ServerRequest request) {
         return DELETE("/idea/{idea_id}/like/{like_id}")
                 .and(accept(APPLICATION_JSON_UTF8))
-                .and(contentType(APPLICATION_JSON_UTF8))
                 .test(request);
     }
 }

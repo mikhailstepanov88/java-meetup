@@ -5,3 +5,5 @@ spring.data.mongodb:
   authentication-database: admin
   username: admin
   password: admin
+
+server.port: 8081
