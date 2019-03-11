@@ -12,6 +12,8 @@ val lombokVersion = ext.get("versions.lombok") as String
 dependencies {
     compile(project(":library:data"))
     compile(project(":library:converter"))
+    compile(project(":library:client:poet"))
+    compile(project(":library:client:retrofit"))
 
     compile(group = "org.springframework.boot", name = "spring-boot-starter-json")
     compile(group = "org.springframework.boot", name = "spring-boot-starter-webflux")

@@ -20,6 +20,7 @@ public class RoutingConfig {
      * @return function for routing.
      */
     @Bean
+    @NonNull
     public RouterFunction<ServerResponse> routerFunction(@NonNull final Matcher matcher,
                                                          @NonNull final Handler handler) {
         return route(matcher::matchCreateIdea, handler::handleCreateIdea)

@@ -11,6 +11,7 @@ import com.github.mikhailstepanov88.java_meetup.like.data.entity.LikeEntity;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import reactor.util.annotation.NonNull;
 
 @Configuration
 public class ConverterConfig {
@@ -50,6 +51,7 @@ public class ConverterConfig {
      * @return converter from like entity to like DTO.
      */
     @Bean
+    @NonNull
     public Converter<LikeEntity, LikeDTO> likeEntityLikeDTOConverter() {
         return new LikeEntityLikeDTOConverter();
     }
