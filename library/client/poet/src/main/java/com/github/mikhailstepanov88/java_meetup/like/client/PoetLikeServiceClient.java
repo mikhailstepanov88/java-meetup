@@ -15,10 +15,12 @@ public class PoetLikeServiceClient implements LikeServiceClient {
     /**
      * Constructor.
      *
-     * @param webClient http client.
+     * @param baseUrl          base url of like service.
+     * @param webClientBuilder builder of web client.
      */
-    public PoetLikeServiceClient(@NonNull final WebClient webClient) {
-        this.webClient = webClient;
+    public PoetLikeServiceClient(@NonNull final String baseUrl,
+                                 @NonNull final WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.baseUrl(baseUrl).build();
     }
 
     /**

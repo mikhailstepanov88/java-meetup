@@ -51,6 +51,6 @@ public interface RetrofitLikeServiceApi {
      */
     @NonNull
     @DELETE("/idea/{idea_id}/like/{like_id}")
-    Call<Boolean> deleteLike(@NonNull @Path("idea_id") String ideaId,
-                             @NonNull @Path("like_id") String likeId);
+    Call<Void> deleteLike(@NonNull @Path("idea_id") String ideaId,
+                          @NonNull @Path("like_id") String likeId);
 }
