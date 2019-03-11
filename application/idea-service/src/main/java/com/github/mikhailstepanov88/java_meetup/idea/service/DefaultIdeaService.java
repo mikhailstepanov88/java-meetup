@@ -3,6 +3,7 @@ package com.github.mikhailstepanov88.java_meetup.idea.service;
 import com.github.mikhailstepanov88.java_meetup.idea.data.dto.IdeaDTO;
 import com.github.mikhailstepanov88.java_meetup.idea.data.entity.IdeaEntity;
 import com.github.mikhailstepanov88.java_meetup.idea.repository.IdeaRepository;
+import com.github.mikhailstepanov88.java_meetup.like.client.LikeServiceClient;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -12,6 +13,7 @@ import reactor.util.annotation.NonNull;
 @Service
 public class DefaultIdeaService implements IdeaService {
     private final IdeaRepository ideaRepository;
+    private final LikeServiceClient likeServiceClient;
     private final Converter<IdeaDTO, IdeaEntity> ideaDTOIdeaEntityConverter;
     private final Converter<IdeaEntity, IdeaDTO> ideaEntityIdeaDTOConverter;
 
@@ -19,13 +21,16 @@ public class DefaultIdeaService implements IdeaService {
      * Constructor.
      *
      * @param ideaRepository             repository for working with ideas.
+     * @param likeServiceClient          client for working with likes.
      * @param ideaDTOIdeaEntityConverter converter from idea DTO to idea entity.
      * @param ideaEntityIdeaDTOConverter converter from idea entity to idea DTO.
      */
     public DefaultIdeaService(@NonNull final IdeaRepository ideaRepository,
+                              @NonNull final LikeServiceClient likeServiceClient,
                               @NonNull final Converter<IdeaDTO, IdeaEntity> ideaDTOIdeaEntityConverter,
                               @NonNull final Converter<IdeaEntity, IdeaDTO> ideaEntityIdeaDTOConverter) {
         this.ideaRepository = ideaRepository;
+        this.likeServiceClient = likeServiceClient;
         this.ideaDTOIdeaEntityConverter = ideaDTOIdeaEntityConverter;
         this.ideaEntityIdeaDTOConverter = ideaEntityIdeaDTOConverter;
     }
@@ -54,7 +59,14 @@ public class DefaultIdeaService implements IdeaService {
     @NonNull
     @Override
     public Mono<IdeaDTO> readIdeaById(@NonNull final String id) {
-        return ideaRepository.readIdeaById(id).map(ideaEntityIdeaDTOConverter::convert);
+        return ideaRepository.readIdeaById(id)
+                .map(ideaEntityIdeaDTOConverter::convert)
+                .zipWith(likeServiceClient.readLikesByIdeaId(id).collectList())
+                .map(ideaToLikes -> {
+                    IdeaDTO idea = ideaToLikes.getT1();
+                    idea.setLikes(ideaToLikes.getT2());
+                    return idea;
+                });
     }
 
     /**
