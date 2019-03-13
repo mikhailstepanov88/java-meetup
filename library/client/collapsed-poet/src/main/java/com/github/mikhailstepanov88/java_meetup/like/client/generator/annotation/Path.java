@@ -14,4 +14,11 @@ public @interface Path {
      * @return name of replacement in a URL path segment.
      */
     @NonNull String value();
+
+    /**
+     * Get index of replacement in a URL path segment.
+     *
+     * @return index of replacement in a URL path segment.
+     */
+    @NonNull int index() default 0;
 }

@@ -6,7 +6,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.annotation.NonNull;
 
-public interface PoetLikeServiceApi {
+public interface CollapsedPoetLikeService {
     /**
      * Create like.
      *
@@ -28,8 +28,8 @@ public interface PoetLikeServiceApi {
      */
     @NonNull
     @GET(path = "/idea/{idea_id}/like/{like_id}")
-    Mono<LikeDTO> readLikeById(@NonNull @Path("idea_id") String ideaId,
-                               @NonNull @Path("like_id") String likeId);
+    Mono<LikeDTO> readLikeById(@NonNull @Path(value = "idea_id", index = 0) String ideaId,
+                               @NonNull @Path(value = "like_id", index = 1) String likeId);
 
     /**
      * Read likes by identifier of idea.
@@ -50,6 +50,6 @@ public interface PoetLikeServiceApi {
      */
     @NonNull
     @DELETE(path = "/idea/{idea_id}/like/{like_id}")
-    Mono<Boolean> deleteLike(@NonNull @Path("idea_id") String ideaId,
-                             @NonNull @Path("like_id") String likeId);
+    Mono<Boolean> deleteLike(@NonNull @Path(value = "idea_id", index = 0) String ideaId,
+                             @NonNull @Path(value = "like_id", index = 1) String likeId);
 }

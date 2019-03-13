@@ -14,7 +14,6 @@ dependencies {
     compile(project(":library:client:common"))
 
     compile(group = "com.squareup", name = "javapoet", version = javapoetVersion)
-
-    compileOnly(group = "io.projectreactor", name = "reactor-core", version = reactorVersion)
-    compileOnly(group = "org.springframework", name = "spring-webflux", version = springVersion)
+    compile(group = "io.projectreactor", name = "reactor-core", version = reactorVersion)
+    compile(group = "org.springframework", name = "spring-webflux", version = springVersion)
 }

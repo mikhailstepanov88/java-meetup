@@ -1,12 +1,12 @@
 package com.github.mikhailstepanov88.java_meetup.like.client;
 
 import com.github.mikhailstepanov88.java_meetup.like.data.dto.LikeDTO;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.annotation.NonNull;
 
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 
 public class ExpandedPoetLikeServiceClient implements LikeServiceClient {
@@ -92,6 +92,6 @@ public class ExpandedPoetLikeServiceClient implements LikeServiceClient {
                 .uri("/idea/{idea_id}/like/{like_id}", ideaId, likeId)
                 .accept(APPLICATION_JSON_UTF8)
                 .exchange()
-                .map(response -> response.statusCode().equals(HttpStatus.NO_CONTENT));
+                .map(response -> response.statusCode().equals(NO_CONTENT));
     }
 }
