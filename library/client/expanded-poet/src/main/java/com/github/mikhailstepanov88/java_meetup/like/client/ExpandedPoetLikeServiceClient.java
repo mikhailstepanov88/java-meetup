@@ -9,7 +9,7 @@ import reactor.util.annotation.NonNull;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 
-public class PoetLikeServiceClient implements LikeServiceClient {
+public class ExpandedPoetLikeServiceClient implements LikeServiceClient {
     private final WebClient webClient;
 
     /**
@@ -18,8 +18,8 @@ public class PoetLikeServiceClient implements LikeServiceClient {
      * @param baseUrl          base url of like service.
      * @param webClientBuilder builder of web client.
      */
-    public PoetLikeServiceClient(@NonNull final String baseUrl,
-                                 @NonNull final WebClient.Builder webClientBuilder) {
+    public ExpandedPoetLikeServiceClient(@NonNull final String baseUrl,
+                                         @NonNull final WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl(baseUrl).build();
     }
 
