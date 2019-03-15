@@ -100,6 +100,7 @@ public class PoetLikeServiceClientGenerator {
                 .build();
 
         return MethodSpec.constructorBuilder()
+                .addModifiers(Modifier.PUBLIC)
                 .addParameter(baseUrl)
                 .addParameter(webClientBuilder)
                 .addStatement("this.webClient = webClientBuilder.baseUrl(baseUrl).build()")
@@ -128,22 +129,35 @@ public class PoetLikeServiceClientGenerator {
     @NonNull
     private MethodSpec generateMethodSpec(@NonNull final Method method) {
         Result methodResult = getMethodResult(method);
-        Class returnType = methodResult.multiple() ? Flux.class : Mono.class;
+        ParameterizedTypeName returnType = methodResult.multiple() ?
+                ParameterizedTypeName.get(Flux.class, methodResult.type()) :
+                ParameterizedTypeName.get(Mono.class, methodResult.type());
 
-        MethodSpec.Builder result = MethodSpec.methodBuilder(method.getName())
+        return MethodSpec.methodBuilder(method.getName())
                 .addAnnotation(NonNull.class)
                 .addAnnotation(Override.class)
                 .addModifiers(Modifier.PUBLIC)
                 .returns(returnType)
-                .addParameters(generateParametersSpec(method));
+                .addParameters(generateParametersSpec(method))
+                .addCode(generateMethodCode(method))
+                .build();
+    }
 
-        if (hasMethodAnnotation(method, GET.class)) {
-            result.addCode(generateGetMethodCode(method));
-        } else if (hasMethodAnnotation(method, DELETE.class)) {
-            result.addCode(generateDeleteMethodCode(method));
-        }
-
-        return result.build();
+    /**
+     * Generate code of method.
+     *
+     * @param method method.
+     * @return code of method.
+     */
+    @Nullable
+    private CodeBlock generateMethodCode(@NonNull final Method method) {
+        if (hasMethodAnnotation(method, POST.class))
+            return generatePostMethodCode(method);
+        if (hasMethodAnnotation(method, GET.class))
+            return generateGetMethodCode(method);
+        if (hasMethodAnnotation(method, DELETE.class))
+            return generateDeleteMethodCode(method);
+        return null;
     }
 
     /**
@@ -254,7 +268,9 @@ public class PoetLikeServiceClientGenerator {
      */
     @NonNull
     private ParameterSpec generateParameterSpec(@NonNull final Parameter parameter) {
-        return ParameterSpec.builder(parameter.getType(), parameter.getName(), Modifier.FINAL).build();
+        return ParameterSpec.builder(parameter.getType(), parameter.getName(), Modifier.FINAL)
+                .addAnnotation(NonNull.class)
+                .build();
     }
 
     /**
