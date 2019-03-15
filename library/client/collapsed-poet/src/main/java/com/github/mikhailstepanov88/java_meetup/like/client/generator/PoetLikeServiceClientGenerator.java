@@ -27,10 +27,8 @@ public class PoetLikeServiceClientGenerator {
      * @param args input arguments of main method.
      */
     public static void main(@NonNull final String... args) throws IOException {
-        new PoetLikeServiceClientGenerator().generate(CollapsedPoetLikeService.class,
-                Paths.get("/Users/mikhailstepanov/Projects/java-meetup/library/client/" +
-                        "collapsed-poet/src/main/java/com/github/mikhailstepanov88/" +
-                        "java_meetup/like/client"));
+        new PoetLikeServiceClientGenerator().generate(CollapsedPoetLikeService.class, Paths.get(
+                "/Users/mikhailstepanov/Projects/java-meetup/library/client/collapsed-poet/src/main/java"));
     }
 
     /**
@@ -67,9 +65,9 @@ public class PoetLikeServiceClientGenerator {
      */
     @NonNull
     private TypeSpec generateTypeSpec(@NonNull final Class clazz) {
-        return TypeSpec.classBuilder(clazz.getName())
+        return TypeSpec.classBuilder("Default" + clazz.getSimpleName())
                 .addModifiers(Modifier.PUBLIC)
-                .addSuperinterface(CollapsedPoetLikeService.class)
+                .addSuperinterface(clazz)
                 .addField(generateFieldSpec())
                 .addMethod(generateConstructorSpec())
                 .addMethods(generateMethodsSpec(clazz))
@@ -103,7 +101,7 @@ public class PoetLikeServiceClientGenerator {
         return MethodSpec.constructorBuilder()
                 .addParameter(baseUrl)
                 .addParameter(webClientBuilder)
-                .addCode("this.webClient = webClientBuilder.baseUrl(baseUrl).build()")
+                .addCode("this.webClient = webClientBuilder.baseUrl(baseUrl).build();")
                 .build();
     }
 
@@ -159,7 +157,7 @@ public class PoetLikeServiceClientGenerator {
         return CodeBlock.builder()
                 .addStatement(
                         "return webClient.get()" +
-                                ".uri(\"$S\", $S)" +
+                                ".uri($S, $L)" +
                                 ".accept(APPLICATION_JSON_UTF8)" +
                                 ".retrieve()" +
                                 ".bodyToMono($T)",
@@ -184,11 +182,11 @@ public class PoetLikeServiceClientGenerator {
         return CodeBlock.builder()
                 .addStatement(
                         "return webClient.delete()" +
-                                ".uri(\"$S\", $S)" +
+                                ".uri($S, $L)" +
                                 ".accept(APPLICATION_JSON_UTF8)" +
                                 ".exchange()" +
                                 ".map(response -> response.statusCode().equals(NO_CONTENT))",
-                        method.getAnnotation(Path.class).value(),
+                        method.getAnnotation(DELETE.class).path(),
                         String.join(", ", pathParameterNames)
                 ).build();
     }
@@ -246,8 +244,7 @@ public class PoetLikeServiceClientGenerator {
     private <T extends Annotation> boolean hasMethodAnnotation(@NonNull final Method method,
                                                                @NonNull final Class<T> annotationClass) {
         try {
-            method.getAnnotation(annotationClass);
-            return true;
+            return method.getAnnotation(annotationClass) != null;
         } catch (final Throwable ex) {
             return false;
         }
@@ -264,8 +261,7 @@ public class PoetLikeServiceClientGenerator {
     private <T extends Annotation> boolean hasParameterAnnotation(@NonNull final Parameter parameter,
                                                                   @NonNull final Class<T> annotationClass) {
         try {
-            parameter.getAnnotation(annotationClass);
-            return true;
+            return parameter.getAnnotation(annotationClass) != null;
         } catch (final Throwable ex) {
             return false;
         }
