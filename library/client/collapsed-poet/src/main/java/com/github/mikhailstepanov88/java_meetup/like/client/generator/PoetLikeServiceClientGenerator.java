@@ -1,10 +1,7 @@
 package com.github.mikhailstepanov88.java_meetup.like.client.generator;
 
 import com.github.mikhailstepanov88.java_meetup.like.client.CollapsedPoetLikeService;
-import com.github.mikhailstepanov88.java_meetup.like.client.generator.annotation.DELETE;
-import com.github.mikhailstepanov88.java_meetup.like.client.generator.annotation.GET;
-import com.github.mikhailstepanov88.java_meetup.like.client.generator.annotation.Path;
-import com.github.mikhailstepanov88.java_meetup.like.client.generator.annotation.Result;
+import com.github.mikhailstepanov88.java_meetup.like.client.generator.annotation.*;
 import com.squareup.javapoet.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -150,6 +147,39 @@ public class PoetLikeServiceClientGenerator {
     }
 
     /**
+     * Generate code of post method.
+     *
+     * @param method method.
+     * @return code of post method.
+     */
+    private CodeBlock generatePostMethodCode(@NonNull final Method method) {
+        Result methodResult = getMethodResult(method);
+        String terminalMethod = methodResult.multiple() ?
+                ".bodyToFlux($T.class)" :
+                ".bodyToMono($T.class)";
+
+        String bodyParameterName = getBodyParameter(method).getName();
+        Collection<String> pathParameterNames = getPathParameters(method).stream()
+                .map(Parameter::getName)
+                .collect(Collectors.toList());
+
+        return CodeBlock.builder()
+                .addStatement(
+                        "return webClient.post()" +
+                                ".uri($S, $L)" +
+                                ".contentType(APPLICATION_JSON_UTF8)" +
+                                ".accept(APPLICATION_JSON_UTF8)" +
+                                ".syncBody($L)" +
+                                ".retrieve()" +
+                                terminalMethod,
+                        method.getAnnotation(POST.class).path(),
+                        String.join(", ", pathParameterNames),
+                        bodyParameterName,
+                        methodResult.type()
+                ).build();
+    }
+
+    /**
      * Generate code of get method.
      *
      * @param method method.
@@ -256,6 +286,19 @@ public class PoetLikeServiceClientGenerator {
                     return Integer.compare(firstIndex, secondIndex);
                 })
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Get body parameters.
+     *
+     * @param method method.
+     * @return body parameters.
+     */
+    @Nullable
+    private Parameter getBodyParameter(@NonNull final Method method) {
+        return Arrays.stream(method.getParameters())
+                .filter(parameter -> hasParameterAnnotation(parameter, Body.class))
+                .findAny().orElse(null);
     }
 
     /**
