@@ -4,11 +4,15 @@ import com.github.mikhailstepanov88.java_meetup.like.client.CollapsedPoetLikeSer
 import com.github.mikhailstepanov88.java_meetup.like.client.generator.annotation.DELETE;
 import com.github.mikhailstepanov88.java_meetup.like.client.generator.annotation.GET;
 import com.github.mikhailstepanov88.java_meetup.like.client.generator.annotation.Path;
+import com.github.mikhailstepanov88.java_meetup.like.client.generator.annotation.Result;
 import com.squareup.javapoet.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import reactor.util.annotation.NonNull;
+import reactor.util.annotation.Nullable;
 
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
@@ -101,7 +105,7 @@ public class PoetLikeServiceClientGenerator {
         return MethodSpec.constructorBuilder()
                 .addParameter(baseUrl)
                 .addParameter(webClientBuilder)
-                .addCode("this.webClient = webClientBuilder.baseUrl(baseUrl).build();")
+                .addStatement("this.webClient = webClientBuilder.baseUrl(baseUrl).build()")
                 .build();
     }
 
@@ -126,11 +130,14 @@ public class PoetLikeServiceClientGenerator {
      */
     @NonNull
     private MethodSpec generateMethodSpec(@NonNull final Method method) {
+        Result methodResult = getMethodResult(method);
+        Class returnType = methodResult.multiple() ? Flux.class : Mono.class;
+
         MethodSpec.Builder result = MethodSpec.methodBuilder(method.getName())
                 .addAnnotation(NonNull.class)
                 .addAnnotation(Override.class)
                 .addModifiers(Modifier.PUBLIC)
-                .returns(method.getReturnType())
+                .returns(returnType)
                 .addParameters(generateParametersSpec(method));
 
         if (hasMethodAnnotation(method, GET.class)) {
@@ -150,6 +157,11 @@ public class PoetLikeServiceClientGenerator {
      */
     @NonNull
     private CodeBlock generateGetMethodCode(@NonNull final Method method) {
+        Result methodResult = getMethodResult(method);
+        String terminalMethod = methodResult.multiple() ?
+                ".bodyToFlux($T.class)" :
+                ".bodyToMono($T.class)";
+
         Collection<String> pathParameterNames = getPathParameters(method).stream()
                 .map(Parameter::getName)
                 .collect(Collectors.toList());
@@ -160,10 +172,10 @@ public class PoetLikeServiceClientGenerator {
                                 ".uri($S, $L)" +
                                 ".accept(APPLICATION_JSON_UTF8)" +
                                 ".retrieve()" +
-                                ".bodyToMono($T)",
+                                terminalMethod,
                         method.getAnnotation(GET.class).path(),
                         String.join(", ", pathParameterNames),
-                        method.getReturnType()
+                        methodResult.type()
                 ).build();
     }
 
@@ -213,6 +225,19 @@ public class PoetLikeServiceClientGenerator {
     @NonNull
     private ParameterSpec generateParameterSpec(@NonNull final Parameter parameter) {
         return ParameterSpec.builder(parameter.getType(), parameter.getName(), Modifier.FINAL).build();
+    }
+
+    /**
+     * Get result of method.
+     *
+     * @param method method.
+     * @return result of method.
+     */
+    @Nullable
+    private Result getMethodResult(@NonNull final Method method) {
+        return hasMethodAnnotation(method, Result.class) ?
+                method.getAnnotation(Result.class) :
+                null;
     }
 
     /**

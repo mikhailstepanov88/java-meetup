@@ -15,6 +15,7 @@ public interface CollapsedPoetLikeService {
      * @return created like.
      */
     @NonNull
+    @Result(type = LikeDTO.class)
     @POST(path = "/idea/{idea_id}/like")
     Mono<LikeDTO> createLike(@NonNull @Path("idea_id") String ideaId,
                              @NonNull @Body LikeDTO like);
@@ -27,6 +28,7 @@ public interface CollapsedPoetLikeService {
      * @return like by his identifier.
      */
     @NonNull
+    @Result(type = LikeDTO.class)
     @GET(path = "/idea/{idea_id}/like/{like_id}")
     Mono<LikeDTO> readLikeById(@NonNull @Path(value = "idea_id", index = 0) String ideaId,
                                @NonNull @Path(value = "like_id", index = 1) String likeId);
@@ -39,6 +41,7 @@ public interface CollapsedPoetLikeService {
      */
     @NonNull
     @GET(path = "/idea/{idea_id}/like")
+    @Result(type = LikeDTO.class, multiple = true)
     Flux<LikeDTO> readLikesByIdeaId(@NonNull @Path("idea_id") String ideaId);
 
     /**
@@ -49,6 +52,7 @@ public interface CollapsedPoetLikeService {
      * @return operation complete successfully or not.
      */
     @NonNull
+    @Result(type = Boolean.class)
     @DELETE(path = "/idea/{idea_id}/like/{like_id}")
     Mono<Boolean> deleteLike(@NonNull @Path(value = "idea_id", index = 0) String ideaId,
                              @NonNull @Path(value = "like_id", index = 1) String likeId);
