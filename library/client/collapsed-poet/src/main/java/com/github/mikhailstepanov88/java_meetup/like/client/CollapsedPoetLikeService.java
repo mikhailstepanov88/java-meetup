@@ -1,6 +1,6 @@
 package com.github.mikhailstepanov88.java_meetup.like.client;
 
-import com.github.mikhailstepanov88.java_meetup.like.client.generator.annotation.*;
+import com.github.mikhailstepanov88.java_meetup.like.client.annotation.*;
 import com.github.mikhailstepanov88.java_meetup.like.data.dto.LikeDTO;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

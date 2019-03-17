@@ -5,7 +5,7 @@ import reactor.util.annotation.NonNull;
 
 import java.nio.file.Paths;
 
-public class PoetLikeServiceClientGenerator {
+public class CollapsedPoetLikeServiceGenerator {
     /**
      * Main method of class.
      *
