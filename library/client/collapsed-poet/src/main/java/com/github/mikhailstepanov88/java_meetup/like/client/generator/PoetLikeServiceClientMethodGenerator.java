@@ -6,7 +6,7 @@ import reactor.util.annotation.NonNull;
 import java.lang.reflect.Method;
 import java.util.Collection;
 
-interface PoetLikeServiceClientMethodGenerator {
+public interface PoetLikeServiceClientMethodGenerator {
     /**
      * Generate methods specification.
      *

@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import reactor.util.annotation.NonNull;
 
-class DefaultPoetLikeServiceClientFileGenerator implements PoetLikeServiceClientFileGenerator {
+public class DefaultPoetLikeServiceClientFileGenerator implements PoetLikeServiceClientFileGenerator {
     private final PoetLikeServiceClientClassGenerator classGenerator;
 
     /**

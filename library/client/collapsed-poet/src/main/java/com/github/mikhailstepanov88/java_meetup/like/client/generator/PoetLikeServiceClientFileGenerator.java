@@ -3,7 +3,7 @@ package com.github.mikhailstepanov88.java_meetup.like.client.generator;
 import com.squareup.javapoet.JavaFile;
 import reactor.util.annotation.NonNull;
 
-interface PoetLikeServiceClientFileGenerator {
+public interface PoetLikeServiceClientFileGenerator {
     /**
      * Generate file.
      *

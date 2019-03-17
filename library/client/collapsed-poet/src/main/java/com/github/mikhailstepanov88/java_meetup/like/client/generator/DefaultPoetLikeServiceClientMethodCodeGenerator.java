@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
 
-class DefaultPoetLikeServiceClientMethodCodeGenerator implements PoetLikeServiceClientMethodCodeGenerator {
+public class DefaultPoetLikeServiceClientMethodCodeGenerator implements PoetLikeServiceClientMethodCodeGenerator {
     /**
      * Generate code of method.
      *

@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-class DefaultPoetLikeServiceClientParameterGenerator implements PoetLikeServiceClientParameterGenerator {
+public class DefaultPoetLikeServiceClientParameterGenerator implements PoetLikeServiceClientParameterGenerator {
     /**
      * Generate parameters specification.
      *

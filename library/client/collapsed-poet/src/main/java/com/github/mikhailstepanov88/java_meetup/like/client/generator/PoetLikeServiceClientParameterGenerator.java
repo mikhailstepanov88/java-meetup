@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Collection;
 
-interface PoetLikeServiceClientParameterGenerator {
+public interface PoetLikeServiceClientParameterGenerator {
     /**
      * Generate parameters specification.
      *

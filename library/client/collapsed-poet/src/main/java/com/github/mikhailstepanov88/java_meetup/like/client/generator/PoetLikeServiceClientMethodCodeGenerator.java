@@ -6,7 +6,7 @@ import reactor.util.annotation.Nullable;
 
 import java.lang.reflect.Method;
 
-interface PoetLikeServiceClientMethodCodeGenerator {
+public interface PoetLikeServiceClientMethodCodeGenerator {
     /**
      * Generate code of method.
      *

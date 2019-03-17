@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-class DefaultPoetLikeServiceClientMethodGenerator implements PoetLikeServiceClientMethodGenerator {
+public class DefaultPoetLikeServiceClientMethodGenerator implements PoetLikeServiceClientMethodGenerator {
     private final PoetLikeServiceClientMethodCodeGenerator codeGenerator;
     private final PoetLikeServiceClientParameterGenerator parameterGenerator;
 
@@ -23,8 +23,8 @@ class DefaultPoetLikeServiceClientMethodGenerator implements PoetLikeServiceClie
      * @param codeGenerator      generator of method code.
      * @param parameterGenerator generator of method parameters.
      */
-    DefaultPoetLikeServiceClientMethodGenerator(@NonNull final PoetLikeServiceClientMethodCodeGenerator codeGenerator,
-                                                @NonNull final PoetLikeServiceClientParameterGenerator parameterGenerator) {
+    public DefaultPoetLikeServiceClientMethodGenerator(@NonNull final PoetLikeServiceClientMethodCodeGenerator codeGenerator,
+                                                       @NonNull final PoetLikeServiceClientParameterGenerator parameterGenerator) {
         this.codeGenerator = codeGenerator;
         this.parameterGenerator = parameterGenerator;
     }

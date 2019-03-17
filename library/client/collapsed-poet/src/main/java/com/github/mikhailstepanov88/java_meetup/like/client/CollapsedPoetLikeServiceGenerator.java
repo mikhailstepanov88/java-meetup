@@ -1,6 +1,6 @@
-package com.github.mikhailstepanov88.java_meetup.like.client.generator;
+package com.github.mikhailstepanov88.java_meetup.like.client;
 
-import com.github.mikhailstepanov88.java_meetup.like.client.CollapsedPoetLikeService;
+import com.github.mikhailstepanov88.java_meetup.like.client.generator.*;
 import reactor.util.annotation.NonNull;
 
 import java.nio.file.Paths;

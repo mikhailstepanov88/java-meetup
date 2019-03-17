@@ -7,7 +7,7 @@ import reactor.util.annotation.NonNull;
 
 import javax.lang.model.element.Modifier;
 
-class DefaultPoetLikeServiceClientConstructorGenerator implements PoetLikeServiceClientConstructorGenerator {
+public class DefaultPoetLikeServiceClientConstructorGenerator implements PoetLikeServiceClientConstructorGenerator {
     /**
      * Generate constructor specification.
      *
