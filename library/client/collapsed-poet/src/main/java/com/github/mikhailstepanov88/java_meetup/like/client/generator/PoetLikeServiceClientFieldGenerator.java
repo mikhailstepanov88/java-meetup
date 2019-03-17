@@ -1,0 +1,14 @@
+package com.github.mikhailstepanov88.java_meetup.like.client.generator;
+
+import com.squareup.javapoet.FieldSpec;
+import reactor.util.annotation.NonNull;
+
+interface PoetLikeServiceClientFieldGenerator {
+    /**
+     * Generate field specification.
+     *
+     * @return field specification.
+     */
+    @NonNull
+    FieldSpec generate();
+}
