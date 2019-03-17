@@ -21,7 +21,7 @@ class PoetLikeServiceClientMethodCodeGenerator {
      * @return code of method.
      */
     @Nullable
-    CodeBlock generateMethodCode(@NonNull final Method method) {
+    CodeBlock generate(@NonNull final Method method) {
         if (nonNull(method.getAnnotation(POST.class)))
             return generatePostMethodCode(method);
         if (nonNull(method.getAnnotation(GET.class)))

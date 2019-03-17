@@ -18,9 +18,9 @@ class PoetLikeServiceClientParameterGenerator {
      * @return parameters specification.
      */
     @NonNull
-    Collection<ParameterSpec> generateParametersSpec(@NonNull final Method method) {
+    Collection<ParameterSpec> generate(@NonNull final Method method) {
         return Arrays.stream(method.getParameters())
-                .map(this::generateParameterSpec)
+                .map(this::generate)
                 .collect(Collectors.toList());
     }
 
@@ -31,7 +31,7 @@ class PoetLikeServiceClientParameterGenerator {
      * @return parameter specification.
      */
     @NonNull
-    ParameterSpec generateParameterSpec(@NonNull final Parameter parameter) {
+    ParameterSpec generate(@NonNull final Parameter parameter) {
         return ParameterSpec.builder(parameter.getType(), parameter.getName(), Modifier.FINAL)
                 .addAnnotation(NonNull.class)
                 .build();
