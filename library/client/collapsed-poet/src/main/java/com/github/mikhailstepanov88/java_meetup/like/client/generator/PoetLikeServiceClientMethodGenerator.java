@@ -14,7 +14,7 @@ interface PoetLikeServiceClientMethodGenerator {
      * @return methods specification.
      */
     @NonNull
-    Collection<MethodSpec> generate(@NonNull final Class clazz);
+    Collection<MethodSpec> generate(@NonNull Class clazz);
 
     /**
      * Generate method specification.
@@ -23,5 +23,5 @@ interface PoetLikeServiceClientMethodGenerator {
      * @return method specification.
      */
     @NonNull
-    MethodSpec generate(@NonNull final Method method);
+    MethodSpec generate(@NonNull Method method);
 }

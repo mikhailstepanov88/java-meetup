@@ -15,7 +15,7 @@ interface PoetLikeServiceClientParameterGenerator {
      * @return parameters specification.
      */
     @NonNull
-    Collection<ParameterSpec> generate(@NonNull final Method method);
+    Collection<ParameterSpec> generate(@NonNull Method method);
 
     /**
      * Generate parameter specification.
@@ -24,5 +24,5 @@ interface PoetLikeServiceClientParameterGenerator {
      * @return parameter specification.
      */
     @NonNull
-    ParameterSpec generate(@NonNull final Parameter parameter);
+    ParameterSpec generate(@NonNull Parameter parameter);
 }

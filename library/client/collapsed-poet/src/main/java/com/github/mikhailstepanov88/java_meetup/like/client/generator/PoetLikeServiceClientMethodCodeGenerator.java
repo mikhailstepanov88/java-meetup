@@ -14,5 +14,5 @@ interface PoetLikeServiceClientMethodCodeGenerator {
      * @return code of method.
      */
     @Nullable
-    CodeBlock generate(@NonNull final Method method);
+    CodeBlock generate(@NonNull Method method);
 }
