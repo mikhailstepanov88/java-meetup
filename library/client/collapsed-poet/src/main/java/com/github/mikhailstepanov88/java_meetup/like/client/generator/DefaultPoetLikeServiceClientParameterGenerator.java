@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-class DefaultPoetLikeServiceClientParameterGenerator {
+class DefaultPoetLikeServiceClientParameterGenerator implements PoetLikeServiceClientParameterGenerator {
     /**
      * Generate parameters specification.
      *
@@ -18,7 +18,8 @@ class DefaultPoetLikeServiceClientParameterGenerator {
      * @return parameters specification.
      */
     @NonNull
-    Collection<ParameterSpec> generate(@NonNull final Method method) {
+    @Override
+    public Collection<ParameterSpec> generate(@NonNull final Method method) {
         return Arrays.stream(method.getParameters())
                 .map(this::generate)
                 .collect(Collectors.toList());
@@ -31,7 +32,8 @@ class DefaultPoetLikeServiceClientParameterGenerator {
      * @return parameter specification.
      */
     @NonNull
-    ParameterSpec generate(@NonNull final Parameter parameter) {
+    @Override
+    public ParameterSpec generate(@NonNull final Parameter parameter) {
         return ParameterSpec.builder(parameter.getType(), parameter.getName(), Modifier.FINAL)
                 .addAnnotation(NonNull.class)
                 .build();

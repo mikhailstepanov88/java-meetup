@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
 
-class DefaultPoetLikeServiceClientMethodCodeGenerator {
+class DefaultPoetLikeServiceClientMethodCodeGenerator implements PoetLikeServiceClientMethodCodeGenerator {
     /**
      * Generate code of method.
      *
@@ -21,7 +21,8 @@ class DefaultPoetLikeServiceClientMethodCodeGenerator {
      * @return code of method.
      */
     @Nullable
-    CodeBlock generate(@NonNull final Method method) {
+    @Override
+    public CodeBlock generate(@NonNull final Method method) {
         if (nonNull(method.getAnnotation(POST.class)))
             return generatePostMethodCode(method);
         if (nonNull(method.getAnnotation(GET.class)))
