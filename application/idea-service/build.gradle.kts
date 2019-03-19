@@ -13,7 +13,8 @@ dependencies {
     compile(project(":library:data"))
     compile(project(":library:converter"))
     compile(project(":library:client:retrofit"))
-    compile(project(":library:client:expanded-poet"))
+    compile(project(":library:client:spring"))
+    compile(project(":library:client:collapsed-poet"))
 
     compile(group = "org.springframework.boot", name = "spring-boot-starter-json")
     compile(group = "org.springframework.boot", name = "spring-boot-starter-webflux")
