@@ -6,7 +6,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.annotation.NonNull;
 
-public interface CollapsedPoetLikeService {
+public interface PoetLikeService {
     /**
      * Create like.
      *

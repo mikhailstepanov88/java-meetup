@@ -5,7 +5,7 @@ import reactor.util.annotation.NonNull;
 
 import java.nio.file.Paths;
 
-public class CollapsedPoetLikeServiceGenerator {
+public class PoetLikeServiceGenerator {
     /**
      * Main method of class.
      *
@@ -31,7 +31,7 @@ public class CollapsedPoetLikeServiceGenerator {
         PoetLikeServiceClientFileGenerator fileGenerator =
                 new DefaultPoetLikeServiceClientFileGenerator(classGenerator);
 
-        fileGenerator.generate(CollapsedPoetLikeService.class).writeTo(Paths.get(
-                "/Users/mikhailstepanov/Projects/java-meetup/library/client/collapsed-poet/src/main/java"));
+        fileGenerator.generate(PoetLikeService.class).writeTo(Paths.get(
+                "/Users/mikhailstepanov/Projects/java-meetup/library/client/poet/src/main/java"));
     }
 }

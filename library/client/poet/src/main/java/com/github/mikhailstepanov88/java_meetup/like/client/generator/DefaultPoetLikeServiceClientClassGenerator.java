@@ -1,5 +1,6 @@
 package com.github.mikhailstepanov88.java_meetup.like.client.generator;
 
+import com.github.mikhailstepanov88.java_meetup.like.client.LikeServiceClient;
 import com.squareup.javapoet.TypeSpec;
 import reactor.util.annotation.NonNull;
 
@@ -37,6 +38,7 @@ public class DefaultPoetLikeServiceClientClassGenerator implements PoetLikeServi
         return TypeSpec.classBuilder("Default" + clazz.getSimpleName())
                 .addModifiers(Modifier.PUBLIC)
                 .addSuperinterface(clazz)
+                .addSuperinterface(LikeServiceClient.class)
                 .addField(fieldGenerator.generate())
                 .addMethod(constructorGenerator.generate())
                 .addMethods(methodGenerator.generate(clazz))
